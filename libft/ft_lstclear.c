@@ -1,28 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_bonus.h                              :+:      :+:    :+:   */
+/*   ft_lstclear.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adjoly <adjoly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/01 17:12:00 by adjoly            #+#    #+#             */
-/*   Updated: 2023/12/15 05:43:09 by adjoly           ###   ########.fr       */
+/*   Created: 2023/11/11 18:05:14 by adjoly            #+#    #+#             */
+/*   Updated: 2023/11/12 16:19:59 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_BONUS_H
-# define GET_NEXT_LINE_BONUS_H
+#include "libft.h"
 
-# include <unistd.h>
-# include <stdlib.h>
+void	ft_lstclear(t_list **lst, void (*del)(void *))
+{
+	t_list	*tmp;
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 5
-# endif
-
-char	*get_next_line(int fd);
-char	*ft_strjoin(char *s1, char *s2);
-size_t	ft_strlen(char *s);
-void	*ft_calloc(size_t nmemb, size_t size);
-
-#endif
+	tmp = NULL;
+	while (lst && *lst && del)
+	{
+		tmp = (*lst)->next;
+		ft_lstdelone((*lst), del);
+		*lst = tmp;
+	}
+}

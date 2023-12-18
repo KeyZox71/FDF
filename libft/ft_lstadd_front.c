@@ -1,28 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_bonus.h                              :+:      :+:    :+:   */
+/*   ft_lstadd_front.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adjoly <adjoly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/01 17:12:00 by adjoly            #+#    #+#             */
-/*   Updated: 2023/12/15 05:43:09 by adjoly           ###   ########.fr       */
+/*   Created: 2023/11/11 15:39:25 by adjoly            #+#    #+#             */
+/*   Updated: 2023/11/11 15:50:06 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_BONUS_H
-# define GET_NEXT_LINE_BONUS_H
+#include "libft.h"
 
-# include <unistd.h>
-# include <stdlib.h>
-
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 5
-# endif
-
-char	*get_next_line(int fd);
-char	*ft_strjoin(char *s1, char *s2);
-size_t	ft_strlen(char *s);
-void	*ft_calloc(size_t nmemb, size_t size);
-
-#endif
+void	ft_lstadd_front(t_list **lst, t_list *new)
+{
+	if (lst == NULL)
+		return ;
+	if (new == NULL)
+		return ;
+	new->next = *lst;
+	*lst = new;
+}

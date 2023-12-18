@@ -1,28 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_bonus.h                              :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adjoly <adjoly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/01 17:12:00 by adjoly            #+#    #+#             */
-/*   Updated: 2023/12/15 05:43:09 by adjoly           ###   ########.fr       */
+/*   Created: 2023/11/03 15:04:04 by adjoly            #+#    #+#             */
+/*   Updated: 2023/11/05 22:05:37 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_BONUS_H
-# define GET_NEXT_LINE_BONUS_H
+#include "libft.h"
 
-# include <unistd.h>
-# include <stdlib.h>
+void	*ft_memmove(void *dest, const void *src, size_t n)
+{
+	size_t	i;
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 5
-# endif
-
-char	*get_next_line(int fd);
-char	*ft_strjoin(char *s1, char *s2);
-size_t	ft_strlen(char *s);
-void	*ft_calloc(size_t nmemb, size_t size);
-
-#endif
+	i = -1;
+	if (dest > src)
+		while (n-- > 0)
+			((unsigned char *)dest)[n] = ((unsigned char *)src)[n];
+	else if (dest < src)
+		while (++i < n)
+			((unsigned char *)dest)[i] = ((unsigned char *)src)[i];
+	return (dest);
+}

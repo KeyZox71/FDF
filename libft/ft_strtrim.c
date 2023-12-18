@@ -1,28 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_bonus.h                              :+:      :+:    :+:   */
+/*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adjoly <adjoly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/01 17:12:00 by adjoly            #+#    #+#             */
-/*   Updated: 2023/12/15 05:43:09 by adjoly           ###   ########.fr       */
+/*   Created: 2023/11/11 00:37:37 by adjoly            #+#    #+#             */
+/*   Updated: 2023/11/11 01:09:36 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_BONUS_H
-# define GET_NEXT_LINE_BONUS_H
+#include "libft.h"
 
-# include <unistd.h>
-# include <stdlib.h>
+char	*ft_strtrim(char const *s1, char const *set)
+{
+	int		i;
+	int		j;
+	char	*result;
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 5
-# endif
-
-char	*get_next_line(int fd);
-char	*ft_strjoin(char *s1, char *s2);
-size_t	ft_strlen(char *s);
-void	*ft_calloc(size_t nmemb, size_t size);
-
-#endif
+	i = 0;
+	if (s1 == NULL || set == NULL)
+		return (NULL);
+	j = ft_strlen(s1);
+	while (ft_strchr(set, s1[i]) != 0)
+		i++;
+	while (ft_strrchr(set, s1[j]) != 0)
+		j--;
+	result = ft_substr(s1, i, (j - i) + 1);
+	return (result);
+}

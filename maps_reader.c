@@ -6,11 +6,15 @@
 /*   By: adjoly <adjoly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 05:19:39 by adjoly            #+#    #+#             */
-/*   Updated: 2023/12/12 11:17:13 by adjoly           ###   ########.fr       */
+/*   Updated: 2023/12/18 17:18:43 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+#include "libft/libft.h"
+#include <stddef.h>
+#include <stdio.h>
+void	ft_putstr(char	*s){int	i = 0;while(s[i]){write(1, &s[i], 1);i++;}}
 
 size_t	ft_countline_fd(int fd)
 {
@@ -21,6 +25,7 @@ size_t	ft_countline_fd(int fd)
 
 	i = 0;
 	count = 1;
+	buf = ft_calloc(1, 1);
 	while (i <= ULONG_MAX)
 	{
 		rd = read(fd, buf, 1);
@@ -35,10 +40,20 @@ size_t	ft_countline_fd(int fd)
 	return (count);
 }
 
+size_t	ft_countline(char **map)
+{
+	size_t	i;
+
+	while (map[i])
+		i++;
+	return (i);
+}
+
 int	ft_read_map(int fd, char **map)
 {
 	size_t	i;
 
+	i = 0;
 	while (map[i] && i <= ULONG_MAX)
 	{
 		map[i] = get_next_line(fd);
@@ -50,16 +65,65 @@ int	ft_read_map(int fd, char **map)
 	return (i);
 }
 
-
 char	**ft_getmap(char	*file)
 {
 	char	**map;
 	int		fd;
+	int		line_nb;
 
 	fd = open(file, O_RDONLY);
-	map = ft_calloc(sizeof(char), ft_countline_fd(fd));
+	line_nb = ft_countline_fd(fd);
+	map = ft_calloc(sizeof(char), line_nb);
 	close(fd);
+	printf("linenb %d", line_nb);
 	fd = open(file, O_RDONLY);
 	ft_read_map(fd, map);
 	return (map);
+}
+
+t_map	*ft_split_height_color(char *tmp)
+{
+	t_map	*height_color;
+	int		i;
+
+	while (tmp[i])
+	{
+		
+		i++;
+	}
+	return ();
+}
+
+t_map	**ft_parse_map(char	**mapfile) 
+{
+	int		z;
+	int		line_count;
+	char	**tmp;
+	t_map	**parsed_map;
+
+	z = 0;
+	line_count = ft_countline(mapfile);
+	parsed_map = ft_calloc(sizeof(t_map), line_count);
+	while (mapfile[z])
+	{
+		tmp = ft_split(mapfile[z], 32);
+		parsed_map[z] = ft_split_height_color(tmp);
+	}
+	return (parsed_map);
+}
+
+
+
+int	main(int ac, char **av)
+{
+	(void)ac;
+	char	**map;
+	int		i = 0;
+	map = ft_getmap(av[1]);
+	ft_putstr("map read");
+	while (map[i])
+	{
+		ft_putstr(map[i]);
+		i++;
+	}
 }

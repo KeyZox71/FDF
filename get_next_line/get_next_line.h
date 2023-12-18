@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 17:12:00 by adjoly            #+#    #+#             */
-/*   Updated: 2023/12/08 18:01:49 by adjoly           ###   ########.fr       */
+/*   Updated: 2023/12/18 09:27:15 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,8 @@
 # endif
 
 char	*get_next_line(int fd);
-char	*ft_strjoin(char *s1, char *s2);
-size_t	ft_strlen(char *s);
-void	*ft_calloc(size_t nmemb, size_t size);
-size_t	ft_strlen_nl(char *s);
+char	*ft_strjoin(const char *s1, const char *s2);
+// size_t	ft_strlen(char *s);
+// void	*ft_calloc(size_t nmemb, size_t size);
 
 #endif

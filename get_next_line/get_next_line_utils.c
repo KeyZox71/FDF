@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 17:12:02 by adjoly            #+#    #+#             */
-/*   Updated: 2023/12/08 17:52:41 by adjoly           ###   ########.fr       */
+/*   Updated: 2023/12/15 05:38:33 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,41 +51,25 @@ char	*ft_strjoin(char *s1, char *s2)
 	return (result);
 }
 
-size_t	ft_strlcpy(char	*dst, char *src, size_t size)
-{
-	size_t	i;
-
-	i = 0;
-	if (size == 0)
-		return (ft_strlen(src));
-	while (i < size && src[i])
-	{
-		dst[i] = src[i];
-		i++;
-	}
-	dst[size] = '\0';
-	return (ft_strlen(src));
-}
-
 void	*ft_calloc(size_t nmemb, size_t size)
 {
-	char	*str;
+	char	*result;
 	size_t	i;
 
 	i = 0;
 	if (nmemb == 0 || size == 0)
 		return (malloc(1));
+	if (((unsigned long long)(size * nmemb) > 4294967295))
+		return (NULL);
 	if ((int)size < 0 && (int)nmemb < 0)
 		return (NULL);
-	if ((unsigned long long)(size * nmemb) > 4294967295)
+	result = malloc(size * nmemb);
+	if (!result)
 		return (NULL);
-	str = malloc(nmemb * size);
-	if (!str)
-		return (NULL);
-	while (i < (nmemb * size))
+	while (i < (size * nmemb))
 	{
-		*(unsigned char *)(str + i) = '\0';
+		*(unsigned char *)(result + i) = '\0';
 		i++;
 	}
-	return (str);
+	return (result);
 }

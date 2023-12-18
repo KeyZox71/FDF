@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 17:11:59 by adjoly            #+#    #+#             */
-/*   Updated: 2023/12/08 18:02:13 by adjoly           ###   ########.fr       */
+/*   Updated: 2023/12/15 05:51:22 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,49 +37,38 @@ char	check_line(char *res, char *buf)
 	return (0);
 }
 
+char	*ft_read_error(char **buf, char *res)
+{
+	free(*buf);
+	*buf = NULL;
+	if (res[0] != 0)
+		return (res);
+	free(res);
+	return (NULL);
+}
+
 char	*get_next_line(int fd)
 {
 	static char	*buf[1024];
 	char		*res;
-	size_t		bytes_read;
+	ssize_t		bytes_read;
 
-	res = ft_calloc(1, 1);
+	if (BUFFER_SIZE <= 0 || fd < 0 || fd > 1023)
+		return (NULL);
 	if (!buf[fd])
 		buf[fd] = ft_calloc(sizeof(char), BUFFER_SIZE + 1);
+	res = ft_calloc(1, 1);
 	while (buf[fd] && res)
 	{
-		res = ft_strjoin(res, buf);
+		res = ft_strjoin(res, buf[fd]);
+		if (!res)
+			return (NULL);
 		if (check_line(res, buf[fd]))
 			return (res);
 		bytes_read = read(fd, buf[fd], BUFFER_SIZE);
 		if (bytes_read < 1)
-		{
-			free(&buf[fd]);
-			buf[fd] = NULL;
-			if (res[0] != 0)
-				return (res);
-			free(res);
-			return (NULL);
-		}
+			return (ft_read_error(&buf[fd], res));
 		buf[fd][bytes_read] = 0;
 	}
 	return (NULL);
 }
-
-/*#include <unistd.h>
-void	ft_putstr(char	*str){if (str == NULL){return ;}int i = 0;while(str[i]){write(1, &str[i], 1);i++;}}
-#include <fcntl.h>
-#include <stdio.h>
-int	main(void)
-{
-	char	*ln;
-	int		fd;
-	fd = open("test.txt", O_RDONLY);
-	while (ln)
-	{
-		ln = get_next_line(fd);
-		ft_putstr(ln);
-		free(ln);
-	}
-	close(fd);
-}*/
