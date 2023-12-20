@@ -6,12 +6,13 @@
 /*   By: adjoly <adjoly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 05:19:39 by adjoly            #+#    #+#             */
-/*   Updated: 2023/12/18 17:18:43 by adjoly           ###   ########.fr       */
+/*   Updated: 2023/12/20 10:43:54 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 #include "libft/libft.h"
+#include <chrono>
 #include <stddef.h>
 #include <stdio.h>
 void	ft_putstr(char	*s){int	i = 0;while(s[i]){write(1, &s[i], 1);i++;}}
@@ -81,22 +82,31 @@ char	**ft_getmap(char	*file)
 	return (map);
 }
 
-t_map	*ft_split_height_color(char *tmp)
+t_map	ft_split_height_color(char *tmp)
 {
-	t_map	*height_color;
+	t_map	height_color;
 	int		i;
 
-	while (tmp[i])
-	{
-		
+	height_color.y = ft_atoi(tmp);
+	while (tmp[i] && tmp[i] != ',')
 		i++;
+	if (tmp[i] == ',')
+	{
+		i++;
+		height_color.color = ft_strdup(&tmp[i]);
+		return (height_color);
 	}
-	return ();
+	else
+	{
+		height_color.color = ft_strdup("0xFFFFFF");
+		return (height_color);
+	}
 }
 
 t_map	**ft_parse_map(char	**mapfile) 
 {
 	int		z;
+	int		x;
 	int		line_count;
 	char	**tmp;
 	t_map	**parsed_map;
@@ -107,12 +117,15 @@ t_map	**ft_parse_map(char	**mapfile)
 	while (mapfile[z])
 	{
 		tmp = ft_split(mapfile[z], 32);
-		parsed_map[z] = ft_split_height_color(tmp);
+		x = 0;
+		while (tmp[x])
+		{
+			parsed_map[z][x] = ft_split_height_color(tmp[x]);
+			x++;
+		}
 	}
 	return (parsed_map);
 }
-
-
 
 int	main(int ac, char **av)
 {
