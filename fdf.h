@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 05:10:42 by adjoly            #+#    #+#             */
-/*   Updated: 2023/12/20 10:21:53 by adjoly           ###   ########.fr       */
+/*   Updated: 2023/12/23 08:20:35 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,9 @@ typedef struct s_map
 	char	*color;
 }			t_map;
 
-int		ft_read_map(int fd, char **map);
-size_t	ft_countline_fd(int fd);
-char	**ft_getmap(char *file);
+// int		ft_read_map(int fd, char **map);
+// size_t	ft_countline_fd(int fd);
+// char	**ft_getmap(char *file);
+// char	*get_next_line(int fd);
 
 #endif

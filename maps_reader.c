@@ -6,15 +6,14 @@
 /*   By: adjoly <adjoly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 05:19:39 by adjoly            #+#    #+#             */
-/*   Updated: 2023/12/20 10:43:54 by adjoly           ###   ########.fr       */
+/*   Updated: 2023/12/23 08:29:30 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 #include "libft/libft.h"
-#include <chrono>
-#include <stddef.h>
 #include <stdio.h>
+
 void	ft_putstr(char	*s){int	i = 0;while(s[i]){write(1, &s[i], 1);i++;}}
 
 size_t	ft_countline_fd(int fd)
@@ -63,19 +62,22 @@ int	ft_read_map(int fd, char **map)
 	if (i == 0 && map[i] == NULL)
 		return (-1);
 	close(fd);
+	map[i + 1] = NULL;
 	return (i);
 }
 
-char	**ft_getmap(char	*file)
+char	**ft_getmap(const char	*file)
 {
 	char	**map;
 	int		fd;
 	int		line_nb;
 
+	printf("mais çá fait quelque chose au moins\n");
 	fd = open(file, O_RDONLY);
+	printf("file opened");
 	line_nb = ft_countline_fd(fd);
-	map = ft_calloc(sizeof(char), line_nb);
 	close(fd);
+	map = ft_calloc(sizeof(char), line_nb);
 	printf("linenb %d", line_nb);
 	fd = open(file, O_RDONLY);
 	ft_read_map(fd, map);
@@ -129,14 +131,19 @@ t_map	**ft_parse_map(char	**mapfile)
 
 int	main(int ac, char **av)
 {
-	(void)ac;
 	char	**map;
 	int		i = 0;
+	printf("%s", av[1]);
 	map = ft_getmap(av[1]);
+	(void)ac;
 	ft_putstr("map read");
 	while (map[i])
 	{
 		ft_putstr(map[i]);
+		free(map[i]);
 		i++;
 	}
+	free(map);
 }
+
+//cc maps_reader.c fdf.h get_next_line/get_next_line.c get_next_line/get_next_line.h get_next_line/get_next_line_utils.c libft/libft.a 

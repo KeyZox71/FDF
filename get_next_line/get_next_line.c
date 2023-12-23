@@ -6,7 +6,7 @@
 /*   By: adjoly <adjoly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 17:11:59 by adjoly            #+#    #+#             */
-/*   Updated: 2023/12/18 09:18:43 by adjoly           ###   ########.fr       */
+/*   Updated: 2023/12/23 06:51:37 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ char	*get_next_line(int fd)
 	res = ft_calloc(1, 1);
 	while (buf)
 	{
-		res = ft_strjoin(res, buf);
+		res = ft_strjoinf(res, buf);
 		if (!res)
 			return (NULL);
 		if (check_line(res, buf))

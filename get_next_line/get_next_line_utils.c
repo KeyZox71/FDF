@@ -6,23 +6,24 @@
 /*   By: adjoly <adjoly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 17:12:02 by adjoly            #+#    #+#             */
-/*   Updated: 2023/12/15 05:38:33 by adjoly           ###   ########.fr       */
+/*   Updated: 2023/12/23 06:52:24 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include "../libft/libft.h"
 
-size_t	ft_strlen(char *s)
-{
-	size_t	i;
+// size_t	ft_strlen(char *s)
+// {
+	// size_t	i;
+// 
+	// i = 0;
+	// while (s[i])
+		// i++;
+	// return (i);
+// }
 
-	i = 0;
-	while (s[i])
-		i++;
-	return (i);
-}
-
-char	*ft_strjoin(char *s1, char *s2)
+char	*ft_strjoinf(char *s1, char *s2)
 {
 	char	*result;
 	size_t	i;
