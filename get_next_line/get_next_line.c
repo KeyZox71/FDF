@@ -6,12 +6,11 @@
 /*   By: adjoly <adjoly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 17:11:59 by adjoly            #+#    #+#             */
-/*   Updated: 2023/12/23 06:51:37 by adjoly           ###   ########.fr       */
+/*   Updated: 2024/01/04 00:45:17 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include "../libft/libft.h"
 
 char	check_line(char *res, char *buf)
 {
@@ -57,11 +56,11 @@ char	*get_next_line(int fd)
 	if (BUFFER_SIZE <= 0 || fd < 0 || fd > 1023)
 		return (NULL);
 	if (!buf)
-		buf = ft_calloc(sizeof(char), BUFFER_SIZE + 1);
-	res = ft_calloc(1, 1);
+		buf = ft_calloc_gnl(sizeof(char), BUFFER_SIZE + 1);
+	res = ft_calloc_gnl(1, 1);
 	while (buf)
 	{
-		res = ft_strjoinf(res, buf);
+		res = ft_strjoin_gnl(res, buf);
 		if (!res)
 			return (NULL);
 		if (check_line(res, buf))

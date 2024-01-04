@@ -1,28 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_putnbr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adjoly <adjoly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/01 17:12:00 by adjoly            #+#    #+#             */
-/*   Updated: 2024/01/04 00:38:03 by adjoly           ###   ########.fr       */
+/*   Created: 2023/10/31 11:52:46 by adjoly            #+#    #+#             */
+/*   Updated: 2023/11/22 10:51:24 by adjoly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "ft_printf.h"
 
-# include <unistd.h>
-# include <stdlib.h>
+int	ft_putnbr(int n)
+{
+	unsigned int	nbr;
+	int				len;
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 5
-# endif
-
-char	*get_next_line(int fd);
-char	*ft_strjoin_gnl(char *s1, char *s2);
-size_t	ft_strlen_gnl(char *s);
-void	*ft_calloc_gnl(size_t nmemb, size_t size);
-
-#endif
+	len = 0;
+	if (n < 0)
+	{
+		len += write(1, "-", 1);
+		nbr = -n;
+	}
+	else
+		nbr = n;
+	if (nbr < 10)
+		len += write(1, &(char){nbr + '0'}, 1);
+	else
+	{
+		len += ft_putnbr(nbr / 10);
+		len += write(1, &(char){nbr % 10 + '0'}, 1);
+	}
+	return (len);
+}
